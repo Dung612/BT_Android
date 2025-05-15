@@ -1,47 +1,50 @@
 package com.example.projectandroid4;
-
-import android.app.Activity;
+import java.text.DecimalFormat;
 import android.os.Bundle;
+import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-public class MainActivity extends Activity { EditText edtdoC,edtdoF;
-    Button btncf,btnfc;
+public class MainActivity extends Activity { Button btnChandoan;
+    EditText editTen,editChieucao,editCannang,editBMI,editChandoan;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        edtdoC = findViewById(R.id.edtdoC);
-        edtdoF = findViewById(R.id.edtdoF);
-        btncf = findViewById(R.id.btncf);
-        btnfc = findViewById(R.id.btnfc);
-        btncf.setOnClickListener(new View.OnClickListener() {
+        btnChandoan= findViewById(R.id.btnBMI);
+        editTen=findViewById(R.id.edtten);
+        editChieucao= findViewById(R.id.edtchieucao);
+        editCannang= findViewById(R.id.edtcannang);
+        editBMI= findViewById(R.id.edtBMI);
+        editChandoan= findViewById(R.id.edtChuanDoan);
+        btnChandoan.setOnClickListener(new View.OnClickListener() {
             @Override
         public void onClick(View v) {
-// TODO Auto-generated method stub
-  DecimalFormat dcf=new DecimalFormat("#.00");
-  String doC = edtdoC.getText()+"";
 
-            int C=Integer.parseInt(doC); edtdoF.setText(""+dcf.format(C*1.8+32));
-
+            double H=Double.parseDouble(editChieucao.getText()+"");
+            double W=Double.parseDouble(editCannang.getText()+"");
+            double BMI=W/Math.pow(H,2);
+            String chandoan="";
+            if(BMI<18)
+            {
+                chandoan="Bạn gầy";
+            }
+            else if(BMI<=24.9)
+            {
+                chandoan="Bạn bình thường";
+            }
+            else if(BMI<=29.9)
+            {
+                chandoan="Bạn béo phì độ 1";
+            }
+            else if(BMI<=34.9)
+            {
+                chandoan="Bạn béo phì độ 2";
+            }
+            else
+            {
+                chandoan="Bạn béo phì độ 3";
+            }
         }
         });
-        btnfc.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                DecimalFormat dcf=new DecimalFormat("#.00");
-
-                String doF = edtdoF.getText()+""; int F=Integer.parseInt(doF);
-                edtdoC.setText(""+dcf.format((F-32)/1.8));
-            }
-        });
-
-    }}
+    }
+}
